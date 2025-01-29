@@ -71,7 +71,7 @@ To set up the project after pulling it from GitHub, follow these steps:
 
 1. **Clone the Repository**: 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/anantaputra08/tamplate-laravel-11-breeze-2-user.git
    ```
 
 2. **Navigate to the Project Directory**: 
