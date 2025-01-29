@@ -76,7 +76,7 @@ To set up the project after pulling it from GitHub, follow these steps:
 
 2. **Navigate to the Project Directory**: 
    ```bash
-   cd <project-directory>
+   cd tamplate-laravel-11-breeze-2-user
    ```
 
 3. **Install Dependencies**: 
