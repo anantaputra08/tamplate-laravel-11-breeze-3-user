@@ -13,7 +13,7 @@ To set up the project after pulling it from GitHub, follow these steps:
 
 1. **Clone the Repository**: 
    ```bash
-   git clone https://github.com/anantaputra08/tamplate-laravel-11-breeze-2-user.git
+   git clone https://github.com/anantaputra08/tamplate-laravel-11-breeze-3-user.git
    ```
 
 2. **For XAMPP Users**: 
@@ -21,24 +21,24 @@ To set up the project after pulling it from GitHub, follow these steps:
 
    **For Mac Users**:
    ```bash
-   mv tamplate-laravel-11-breeze-2-user /Applications/XAMPP/xamppfiles/htdocs/
+   mv tamplate-laravel-11-breeze-3-user /Applications/XAMPP/xamppfiles/htdocs/
    ```
 
    **For Windows Users**:
    ```bash
-   move tamplate-laravel-11-breeze-2-user C:\xampp\htdocs\
+   move tamplate-laravel-11-breeze-3-user C:\xampp\htdocs\
    ```
 
 3. **Navigate to the Project Directory**: 
 
    **For Mac Users**:
    ```bash
-   cd /Applications/XAMPP/xamppfiles/htdocs/tamplate-laravel-11-breeze-2-user
+   cd /Applications/XAMPP/xamppfiles/htdocs/tamplate-laravel-11-breeze-3-user
    ```
 
    **For Windows Users**:
    ```bash
-   cd C:\xampp\htdocs\tamplate-laravel-11-breeze-2-user
+   cd C:\xampp\htdocs\tamplate-laravel-11-breeze-3-user
    ```
 
 4. **Install Dependencies**: 
