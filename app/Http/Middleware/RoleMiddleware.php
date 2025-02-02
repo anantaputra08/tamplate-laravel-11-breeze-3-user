@@ -3,9 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class RoleMiddleware
 {
@@ -17,12 +15,17 @@ class RoleMiddleware
      * @param  string  $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle($request, Closure $next, $role)
     {
-        if (Auth::check() && Auth::user()->role === $role) {
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect('/login');
         }
 
-        return redirect()->route('forbidden'); // Redirect to forbidden view if the user does not have the required role
+        $user = Auth::user();
+        if ($user->role !== $role) {
+            return redirect('/forbidden');
+        }
+
+        return $next($request);
     }
 }

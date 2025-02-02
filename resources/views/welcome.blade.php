@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to {{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="antialiased bg-gradient-to-r from-gray-100 via-white to-gray-100">
     <!-- Navbar -->
     <nav class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow text-white">
@@ -15,9 +17,19 @@
             </a>
             <div>
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="text-white hover:underline">
-                        Dashboard
-                    </a>
+                    @if (Auth::user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="text-white hover:underline">
+                            Dashboard
+                        </a>
+                    @elseif (Auth::user()->hasRole('user'))
+                        <a href="{{ route('dashboard') }}" class="text-white hover:underline">
+                            Dashboard
+                        </a>
+                    @elseif (Auth::user()->hasRole('petugas'))
+                        <a href="{{ route('petugas.dashboard') }}" class="text-white hover:underline">
+                            Dashboard
+                        </a>
+                    @endif
                 @else
                     <a href="{{ route('login') }}" class="text-white hover:underline mr-4">
                         Login
@@ -36,14 +48,29 @@
             <h1 class="text-4xl font-bold mb-4">Welcome to {{ config('app.name', 'Laravel') }}</h1>
             <p class="text-lg mb-6">A modern Laravel application with Breeze authentication.</p>
             @auth
-                <a href="{{ url('/dashboard') }}" class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
-                    Go to Dashboard
-                </a>
+                @if (Auth::user()->hasRole('admin'))
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
+                        Go to Dashboard
+                    </a>
+                @elseif (Auth::user()->hasRole('user'))
+                    <a href="{{ route('dashboard') }}"
+                        class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
+                        Go to Dashboard
+                    </a>
+                @elseif (Auth::user()->hasRole('petugas'))
+                    <a href="{{ route('petugas.dashboard') }}"
+                        class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
+                        Go to Dashboard
+                    </a>
+                @endif
             @else
-                <a href="{{ route('login') }}" class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200 mr-4">
+                <a href="{{ route('login') }}"
+                    class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200 mr-4">
                     Login
                 </a>
-                <a href="{{ route('register') }}" class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
+                <a href="{{ route('register') }}"
+                    class="px-6 py-3 bg-white text-indigo-600 rounded-full shadow hover:bg-gray-200">
                     Get Started
                 </a>
             @endauth
@@ -74,8 +101,10 @@
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-gray-800 via-gray-700 to-black text-white py-8">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved. @putraananta08templates</p>
+            <p>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.
+                @putraananta08templates</p>
         </div>
     </footer>
 </body>
+
 </html>

@@ -26,5 +26,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('1234'), // Assign admin password
             'role' => 'admin', // Assign admin role
         ]);
+
+        User::factory()->create([
+            'name' => 'Petugas User',
+            'email' => 'petugas@example.com',
+            'password' => Hash::make('1234'), // Assign password
+            'role' => 'petugas', // Assign petugas role
+        ]);
     }
 }

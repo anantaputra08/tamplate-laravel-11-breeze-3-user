@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,24 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Routes
-Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard'); // Admin dashboard view
-    })->name('admin.dashboard');
+Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard'); // Admin dashboard view
+        })->name('dashboard');
+
+        Route::resource('users', UserController::class)->except(['show']);
+    });
+
+
+
+// Petugas Routes
+Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':petugas'])->group(function () {
+    Route::get('/petugas/dashboard', function () {
+        return view('petugas.dashboard'); // Petugas dashboard view
+    })->name('petugas.dashboard');
 });
 
 // Forbidden Route
@@ -37,4 +52,4 @@ Route::fallback(function () {
 });
 
 // Authentication Routes
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

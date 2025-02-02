@@ -5,7 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ Auth::user()->role === 'admin' ? route('admin.dashboard') : url('/') }}">
+                    <a
+                        href="{{ Auth::user()->role === 'admin' ? route('admin.dashboard') : (Auth::user()->role === 'petugas' ? route('petugas.dashboard') : url('/')) }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
@@ -13,11 +14,25 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @php
-                        $route = Auth::user()->role === 'admin' ? 'admin.dashboard' : 'dashboard';
+                        if (Auth::user()->role === 'admin') {
+                            $route = 'admin.dashboard';
+                            $label = __('Admin Dashboard');
+                        } elseif (Auth::user()->role === 'petugas') {
+                            $route = 'petugas.dashboard';
+                            $label = __('Petugas Dashboard');
+                        } else {
+                            $route = 'dashboard';
+                            $label = __('Dashboard');
+                        }
                     @endphp
                     <x-nav-link :href="route($route)" :active="request()->routeIs($route)">
-                        {{ Auth::user()->role === 'admin' ? __('Admin Dashboard') : __('Dashboard') }}
+                        {{ $label }}
                     </x-nav-link>
+                    @if (Auth::user()->role === 'admin')
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                            {{ __('Manage Users') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -95,21 +110,21 @@
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
 
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
 
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')"
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
         </div>
 </nav>

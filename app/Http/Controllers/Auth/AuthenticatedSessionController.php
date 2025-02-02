@@ -31,8 +31,12 @@ class AuthenticatedSessionController extends Controller
 
         // Check if the authenticated user is an admin
         $user = Auth::user(); // Get the authenticated user
-        if ($user instanceof User && $user->hasRole('admin')) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+        if ($user instanceof User) {
+            if ($user->hasRole('admin')) {
+                return redirect()->intended(route('admin.dashboard', absolute: false));
+            } elseif ($user->hasRole('petugas')) {
+                return redirect()->intended(route('petugas.dashboard', absolute: false));
+            }
         }
 
         return redirect()->intended(route('dashboard', absolute: false));
